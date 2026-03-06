@@ -1,0 +1,9 @@
+spring:
+  liquibase:
+    enabled: false
+
+  profiles:
+    active: dev
+
+  application:
+    name: taskflow
