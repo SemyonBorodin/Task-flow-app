@@ -28,11 +28,10 @@ class TaskflowApplicationTests {
 					"spring.datasource.url=" + postgres.getJdbcUrl(),
 					"spring.datasource.username=" + postgres.getUsername(),
 					"spring.datasource.password=" + postgres.getPassword(),
-					// let Liquibase apply schema + test data in the container
-					"spring.liquibase.enabled=true",
-					"spring.liquibase.change-log=classpath:db/changelog/db.changelog-master.xml",
-					// disable Hibernate auto-ddl to avoid conflicts with Liquibase
-					"spring.jpa.hibernate.ddl-auto=none"
+					"spring.datasource.driver-class-name=org.postgresql.Driver",
+					"spring.liquibase.enabled=false",
+					"spring.jpa.hibernate.ddl-auto=create-drop",
+					"spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect"
 			).applyTo(context.getEnvironment());
 		}
 	}
