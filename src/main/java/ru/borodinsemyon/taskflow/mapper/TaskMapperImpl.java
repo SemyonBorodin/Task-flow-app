@@ -35,7 +35,7 @@ public class TaskMapperImpl implements TaskMapper {
 
         task.setDetails(request.details());
         task.setCompleted(false);
-        // responsibles заполним в сервисе, не хочу тут логику
+        // Ответственных в в сервисе заполни, не хочу тут логику
 
         return task;
     }
