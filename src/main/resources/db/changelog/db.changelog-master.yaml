@@ -1,0 +1,79 @@
+databaseChangeLog:
+  - include:
+      file: changes/001-schema.xml
+      relativeToChangelogFile: true
+  - include:
+      file: changes/002-test-data.xml
+      relativeToChangelogFile: true
+#  - changeSet:
+#      id: 011-create-webhooks
+#      author: semyon
+#      changes:
+#        - createTable:
+#            tableName: webhooks
+#            columns:
+#              - column:
+#                  name: id
+#                  type: uuid
+#                  constraints:
+#                    primaryKey: true
+#                    nullable: false
+#              - column:
+#                  name: workspace_id
+#                  type: uuid
+#                  constraints:
+#                    nullable: false
+#              - column:
+#                  name: project_id
+#                  type: uuid
+#              - column:
+#                  name: url
+#                  type: varchar(2048)
+#              - column:
+#                  name: events
+#                  type: text
+#              - column:
+#                  name: created_at
+#                  type: timestamp
+#                  defaultValueComputed: CURRENT_TIMESTAMP
+#        - addForeignKeyConstraint:
+#            baseTableName: webhooks
+#            baseColumnNames: workspace_id
+#            referencedTableName: workspaces
+#            referencedColumnNames: id
+#            constraintName: fk_webhooks_workspace
+#        - addForeignKeyConstraint:
+#            baseTableName: webhooks
+#            baseColumnNames: project_id
+#            referencedTableName: projects
+#            referencedColumnNames: id
+#            constraintName: fk_webhooks_project
+
+#  - changeSet:
+#      id: 012-indexes
+#      author: semyon
+#      changes:
+#        - createIndex:
+#            tableName: tasks
+#            indexName: idx_tasks_project_id
+#            columns:
+#              - column:
+#                  name: project_id
+#        - createIndex:
+#            tableName: tasks
+#            indexName: idx_tasks_assignee_id
+#            columns:
+#              - column:
+#                  name: assignee_id
+#        - createIndex:
+#            tableName: comments
+#            indexName: idx_comments_task_id
+#            columns:
+#              - column:
+#                  name: task_id
+#        - createIndex:
+#            tableName: attachments
+#            indexName: idx_attachments_task_id
+#            columns:
+#              - column:
+#                  name: task_id
