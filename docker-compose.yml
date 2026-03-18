@@ -1,0 +1,50 @@
+services:
+  postgres-dev:
+    image: postgres:15-alpine
+    container_name: taskflow-postgres-dev
+    environment:
+      POSTGRES_DB: taskflow_dev
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-dev-data:/var/lib/postgresql/data
+      - ./init-scripts:/docker-entrypoint-initdb.d
+    networks:
+      - taskflow-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  app-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: taskflow-app-dev
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILE: dev
+      DB_USER: postgres
+      DB_PASSWORD: password
+      DB_HOST: postgres-dev
+      DB_PORT: 5432
+      DB_NAME: taskflow_dev
+    depends_on:
+      postgres-dev:
+        condition: service_healthy
+    volumes:
+      - ./src:/app/src
+    networks:
+      - taskflow-network
+    command: java -jar app.jar --spring.profiles.active=dev
+
+volumes:
+  postgres-dev-data:
+
+networks:
+  taskflow-network:
+    driver: bridge
