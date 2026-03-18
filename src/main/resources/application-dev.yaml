@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/taskflow_dev
+    url: jdbc:postgresql://postgres-dev:5432/taskflow_dev
     driver-class-name: org.postgresql.Driver
     username: postgres
     password: password
@@ -26,3 +26,4 @@ server:
   liquibase:
     enabled: true
     change-log: classpath:db/changelog/db.changelog-master.xml
+    url: jdbc:postgresql://postgres-dev:5432/taskflow_dev
